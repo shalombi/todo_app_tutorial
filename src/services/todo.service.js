@@ -11,7 +11,7 @@ export const todoService = {
 }
 
 const KEY = 'todosDB'
-var gTodos = ['wash the dishes', 'Taking out the trash', 'to travel', 'take a trip to the mountains']
+var gTodos = ['wash the dishes', 'Taking out the trash', 'to travel', 'take a trip to America']
 
 function query(filterBy) {
     let todos = _loadFromStorage()
@@ -37,26 +37,26 @@ function query(filterBy) {
 function getById(todoId) {
     if (!todoId) return Promise.resolve(null)
     const todos = _loadFromStorage()
-    const todo = todos.find(todo => todoId === todo.id)
+    const todo = todos.find(todo => todoId === todo._)
     return Promise.resolve(todo)
 }
 
 function getNextTodoId(todoId) {
     let todos = _loadFromStorage()
-    const todoIdx = todos.findIndex(todo => todo.id === todoId)
+    const todoIdx = todos.findIndex(todo => todo._ === todoId)
     const nextTodoIdx = todoIdx + 1 === todos.length ? 0 : todoIdx + 1
-    return todos[nextTodoIdx].id
+    return todos[nextTodoIdx]._
 }
 
 function remove(todoId) {
     let todos = _loadFromStorage()
-    todos = todos.filter(todo => todo.id !== todoId)
+    todos = todos.filter(todo => todo._id !== todoId)
     _saveToStorage(todos)
     return Promise.resolve()
 }
 
 function save(todo) {
-    if (todo.id) return _update(todo)
+    if (todo._id) return _update(todo)
     else return _add(todo)
 }
 
@@ -70,7 +70,7 @@ function _add({ task, speed }) {
 
 function _update(todoToUpdate) {
     let todos = _loadFromStorage()
-    todos = todos.map(todo => todo.id === todoToUpdate.id ? todoToUpdate : todo)
+    todos = todos.map(todo => todo._id === todoToUpdate._id ? todoToUpdate : todo)
     _saveToStorage(todos)
     return Promise.resolve(todoToUpdate)
 }
@@ -81,7 +81,7 @@ function getTasks() {
 
 function _createTodo(task, speed = utilService.getRandomIntInclusive(1, 200)) {
     return {
-        id: utilService.makeId(),
+        _id: utilService.makeId(),
         task,
         speed,
         desc: utilService.makeLorem(),

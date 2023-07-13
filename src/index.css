@@ -39,4 +39,15 @@ code {
 .todo-preview {
   border: black 1px solid;
   padding: 12px;
+  gap: 12px;
+  background-color: lightsteelblue;
+}
+
+/* Helpers */
+.flex {
+  display: flex;
+}
+
+.flex-columns {
+  flex-direction: column;
 }
