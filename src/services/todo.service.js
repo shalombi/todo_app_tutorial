@@ -7,7 +7,8 @@ export const todoService = {
     remove,
     getTasks,
     getNextTodoId,
-    save
+    save,
+    getEmptyTodo,
 }
 
 const KEY = 'todosDB'
@@ -15,7 +16,7 @@ var gTodos = ['wash the dishes', 'Taking out the trash', 'to travel', 'take a tr
 
 function query(filterBy) {
     let todos = _loadFromStorage()
-    if (!todos) {
+    if (!todos || !todos.length) {
         todos = _createTodos()
         _saveToStorage(todos)
     }
@@ -104,4 +105,11 @@ function _saveToStorage(todos) {
 
 function _loadFromStorage() {
     return storageService.loadFromStorage(KEY)
+}
+
+function getEmptyTodo() {
+    return {
+        isDone: false,
+        desc: utilService.makeLorem(),
+    }
 }
