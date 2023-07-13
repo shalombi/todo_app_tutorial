@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { TodoPreview } from "./TodoPreview"
 
-export const TodoList = ({ todos, onEditTodo, onRemoveTodo }) => {
+export const TodoList = ({ todos, onEditTodo, onRemoveTodo, setSelected, toggleIsDone }) => {
 
 
     return (
@@ -11,6 +11,8 @@ export const TodoList = ({ todos, onEditTodo, onRemoveTodo }) => {
                 todo={todo}
                 onEditTodo={onEditTodo}
                 onRemoveTodo={onRemoveTodo}
+                setSelected={setSelected}
+                toggleIsDone={toggleIsDone}
             />)}
 
         </section>
